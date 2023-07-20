@@ -1,43 +1,51 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import React  from 'react'
+import React, { Fragment } from 'react'
 import Axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const Home =()=>{
-    const {user, isAuthenticated, isLoading}= useAuth0();
+const Home = () => {
+    const { user } = useAuth0();
+    const [celebrity, setCelebrity] = useState([]);
 
-    const key= 'gD0glGUqHQf2Ji3O0pO1zQ==yaPybngLFO0DTEeJ';
-    const headers={
-        'X-Api-Key' : key
+    const key = process.env.REACT_APP_KEY;
+    const headers = {
+        'X-Api-Key': key
     }
 
-    const nombre ='Michael Jordan';
-      const url= 'https://api.api-ninjas.com/v1/celebrity?name='+nombre;
+    const nombre = 'Michael Jordan';
+    const url = process.env.REACT_APP_URL_APP + nombre;
 
     useEffect(
-        ()=>{
-            Axios.get(url, {headers})
+        () => {
+            console.log(key);
+            Axios.get(url, { headers })
 
-            .then(resp=>{console.log(resp.data)})
+                .then(resp => {
+                    console.log(resp.data)
+                    setCelebrity(resp.data)
+                    console.log(celebrity)
+                })
 
-            .catch(error=>{console.log(error)})
-        },[]
+                .catch(error => { console.log(error) })
+        }, []
     )
 
-/*    if(isLoading){
-        return (<div>Cargando...</div>)
-    }
-    
-        return(
-    
-            isAuthenticated && (
+    return (
+        <div><h3>{user.name} </h3>
             <div>
-                 
-                 <h2>{user.name} </h2>
-                 <p>Correo electronico:{user.email} </p>
+                {celebrity.map(cel => {
+                    return (
+                        <Fragment>
+                            <h4>{cel.name} </h4>
+                            <h3>{cel.age} </h3>
+                        </Fragment>
+                    )
+                })}
             </div>
-            )
-        )*/
+
+        </div>
+    )
+
 }
 
 export default Home
