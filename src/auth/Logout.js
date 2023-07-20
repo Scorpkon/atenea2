@@ -8,6 +8,6 @@ export const Logout =()=>{
         <button onClick={()=>logout({returnTo: window.location.origin})}>
              Cerrar Sesion
         </button>
-    )
+    );
 }
 export default Logout
