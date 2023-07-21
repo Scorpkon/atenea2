@@ -6,6 +6,7 @@ import {Login} from './auth/Login';
 import {Logout} from './auth/Logout';
 import { Link,Route,Routes } from 'react-router-dom';
 import { Favorites } from './pages/Favorites';
+import SearchBar from './components/SearchBar';
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
       
       <Routes>
       <Route path='/logout' element={<Logout/>} />
-      <Route path='/home' element={<Home/>} />
+      <Route path='/home' element={<SearchBar/>} />
         <Route path='/favorites' element={<Favorites/>} />
       </Routes>
     </div>
